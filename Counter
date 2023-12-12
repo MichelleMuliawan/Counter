@@ -1,0 +1,186 @@
+const int rat0 = 2;
+const int rat1 = 3;
+const int rat2 = 4;
+const int rat3 = 5;
+const int pul0 = 6;
+const int pul1 = 7;
+const int pul2 = 8;
+const int pul3 = 9;
+
+void setup() {
+  pinMode (rat0,OUTPUT);
+  pinMode (rat1,OUTPUT);
+  pinMode (rat2,OUTPUT);
+  pinMode (rat3,OUTPUT);
+  pinMode (pul0,OUTPUT);
+  pinMode (pul1,OUTPUT);
+  pinMode (pul2,OUTPUT);
+  pinMode (pul3,OUTPUT);
+}
+
+const boolean angka [10][4] = {(LOW,LOW,LOW,LOW),
+                              (LOW,LOW,LOW,HIGH),
+                              (LOW,LOW,HIGH,LOW),
+                              (LOW,LOW,HIGH,HIGH),
+                              (LOW,HIGH,LOW,LOW),
+                              (LOW,HIGH,LOW,HIGH),
+                              (LOW,HIGH,HIGH,LOW),
+                              (LOW,HIGH,HIGH,HIGH),
+                              (HIGH,LOW,LOW,LOW),
+                              (HIGH,LOW,LOW,HIGH)};
+
+void counter (int a, int b){
+  digitalWrite(rat0, angka [a][0]);     
+  digitalWrite(rat1, angka [a][1]);    
+  digitalWrite(rat2, angka [a][2]);   
+  digitalWrite(rat3, angka [a][3]);
+
+  digitalWrite(pul0, angka [b][0]);     
+  digitalWrite(pul1, angka [b][1]);    
+  digitalWrite(pul2, angka [b][2]);   
+  digitalWrite(pul3, angka [b][3]);
+};
+
+int a = 0;
+int b = 0;
+void loop() {
+  counter(b,a);
+  delay (200);
+  a++;
+  if (a==10){
+    a = 0;
+    b++;
+    if (b==10){
+      a = 0;
+      b = 0;
+    }
+  }
+}
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+const boolean angka[10][4]= {{LOW,LOW,LOW,LOW},{LOW,LOW,LOW,HIGH},{LOW,LOW,HIGH,LOW},{LOW,LOW,HIGH,HIGH},{LOW,HIGH,LOW,LOW},
+                              {LOW,HIGH,LOW,HIGH},{LOW,HIGH,HIGH,LOW},{LOW,HIGH,HIGH,HIGH},{HIGH,LOW,LOW,LOW},{HIGH,LOW,LOW,HIGH}};
+
+const int pina1 = 5;
+const int pinb1 = 4;
+const int pinc1 = 3;
+const int pind1 = 2;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(pina1,OUTPUT);
+  pinMode(pinb1,OUTPUT);
+  pinMode(pinc1,OUTPUT);
+  pinMode(pind1,OUTPUT);
+
+  pinMode(6,OUTPUT);
+  pinMode(7,OUTPUT);
+  pinMode(8,OUTPUT);
+  pinMode(9,OUTPUT);
+
+}
+
+int a = 0;
+void loop() {
+  print_angka(a);
+  delay(500);
+  a++;
+  if(a==9){
+    a = 0;
+  }
+}
+
+void print_angka(int a){
+  digitalWrite(pina1,angka[a][0]);
+  digitalWrite(pinb1,angka[a][1]);
+  digitalWrite(pinc1,angka[a][2]);
+  digitalWrite(pind1,angka[a][3]);
+}
+
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+const boolean numbers[10][4]= {{LOW,LOW,LOW,LOW},{LOW,LOW,LOW,HIGH},{LOW,LOW,HIGH,LOW},{LOW,LOW,HIGH,HIGH},{LOW,HIGH,LOW,LOW},
+                              {LOW,HIGH,LOW,HIGH},{LOW,HIGH,HIGH,LOW},{LOW,HIGH,HIGH,HIGH},{HIGH,LOW,LOW,LOW},{HIGH,LOW,LOW,HIGH}};
+
+const int pina1 = 2;
+const int pinb1 = 3;
+const int pinc1 = 4;
+const int pind1 = 5;
+
+const int pina2 = 6;
+const int pinb2 = 7;
+const int pinc2 = 8;
+const int pind2 = 9;
+
+const int pinpb1 = 10;
+const int pinpb2 = 11;
+
+
+int number = 0;
+bool counterUP = HIGH;
+bool counterDN = LOW;
+
+void setup() {
+  pinMode(pina1,OUTPUT);
+  pinMode(pinb1,OUTPUT);
+  pinMode(pinc1,OUTPUT);
+  pinMode(pind1,OUTPUT);
+
+  pinMode(pina2,OUTPUT);
+  pinMode(pinb2,OUTPUT);
+  pinMode(pinc2,OUTPUT);
+  pinMode(pind2,OUTPUT);
+
+  pinMode(pinpb1,INPUT);
+  pinMode(pinpb2,INPUT);
+}
+
+void loop() {
+  while(counterUP){
+    showNumber(number);
+    checkPB();
+    delay(500);
+    number++;
+    if(number == 99){
+      number = 0;
+    }
+  };
+  while(counterDN){
+    showNumber(number);
+    checkPB();
+    delay(500);
+    number--;
+    if(number == 0){
+      number = 99;
+    }
+  }
+}
+
+void showNumber(int number) {
+  int a = number/10;
+  int b = number%10;
+
+  digitalWrite(pina1,numbers[a][3]);
+  digitalWrite(pinb1,numbers[a][2]);
+  digitalWrite(pinc1,numbers[a][1]);
+  digitalWrite(pind1,numbers[a][0]);
+
+  digitalWrite(pina2,numbers[b][3]);
+  digitalWrite(pinb2,numbers[b][2]);
+  digitalWrite(pinc2,numbers[b][1]);
+  digitalWrite(pind2,numbers[b][0]);
+}
+
+void checkPB(){
+  if(digitalRead(pinpb1) == HIGH){
+    counterUP = HIGH;
+    counterDN = LOW;
+  }
+  if(digitalRead(pinpb2) == HIGH){
+    counterUP=LOW;
+    counterDN=HIGH;
+}
+}
